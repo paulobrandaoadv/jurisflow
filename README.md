@@ -10,7 +10,7 @@ Aplicação Next.js (App Router) + TypeScript + Tailwind + Supabase (Auth, Postg
 ## Configuração local
 
 1. Instale as dependências: `npm install`
-2. Copie `.env.example` para `.env.local` e preencha `NEXT_PUBLIC_SUPABASE_URL` e `NEXT_PUBLIC_SUPABASE_ANON_KEY`.
+2. Copie `.env.example` para `.env.local` e preencha `SUPABASE_URL` e `SUPABASE_ANON_KEY`.
 3. Aplique as migrações em ordem no projeto Supabase (SQL Editor ou Supabase CLI): `supabase/migrations/0001_fundacao.sql`, depois `0002_processos.sql` e por último `0003_documentos.sql`.
 4. No painel do Supabase, desative o cadastro público (Authentication > Providers > Email > desabilitar "Allow new users to sign up" ou equivalente) para que usuários sejam criados apenas por um administrador.
 5. Rode `npm run dev` e acesse `http://localhost:3000`.
