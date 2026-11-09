@@ -10,8 +10,9 @@ type MenuItem = { label: string; href: string; etapa?: string };
 const MENU: MenuItem[] = [
   { label: "Dashboard", href: "/" },
   { label: "Clientes", href: "/clientes" },
-  { label: "Processos", href: "#", etapa: "Etapa 2" },
-  { label: "Documentos", href: "#", etapa: "Etapa 3" },
+  { label: "Busca", href: "/busca" },
+  { label: "Processos", href: "/processos" },
+  { label: "Documentos", href: "/documentos" },
   { label: "Publicações e Intimações", href: "#", etapa: "Etapa 4" },
   { label: "Prazos", href: "#", etapa: "Etapa 4" },
   { label: "Agenda", href: "#", etapa: "Etapa 4" },

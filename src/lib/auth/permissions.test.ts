@@ -10,14 +10,21 @@ describe("matriz de permissões", () => {
     }
   });
 
-  it("consulta lê mas não escreve clientes", () => {
+  it("consulta lê mas não escreve clientes nem processos", () => {
     expect(can("consulta", "clientes:ler")).toBe(true);
     expect(can("consulta", "clientes:escrever")).toBe(false);
+    expect(can("consulta", "processos:ler")).toBe(true);
+    expect(can("consulta", "processos:escrever")).toBe(false);
+    expect(can("consulta", "documentos:ler")).toBe(true);
+    expect(can("consulta", "documentos:escrever")).toBe(false);
   });
 
-  it("advogado e assistente escrevem clientes", () => {
-    expect(can("advogado", "clientes:escrever")).toBe(true);
-    expect(can("assistente", "clientes:escrever")).toBe(true);
+  it("advogado e assistente escrevem clientes, processos e documentos", () => {
+    for (const role of ["advogado", "assistente"] as const) {
+      expect(can(role, "clientes:escrever")).toBe(true);
+      expect(can(role, "processos:escrever")).toBe(true);
+      expect(can(role, "documentos:escrever")).toBe(true);
+    }
   });
 
   it("papel desconhecido não recebe permissão alguma", () => {

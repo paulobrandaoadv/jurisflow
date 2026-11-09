@@ -1,5 +1,6 @@
 import { Suspense } from "react";
 import { signIn } from "@/app/login/actions";
+import { CampoSenha } from "@/app/login/campo-senha";
 
 const MENSAGENS_ERRO: Record<string, string> = {
   campos: "Informe e-mail e senha.",
@@ -46,14 +47,7 @@ async function LoginForm({ searchParams }: { searchParams: Promise<{ erro?: stri
             <label htmlFor="password" className="block text-sm font-medium text-slate-700">
               Senha
             </label>
-            <input
-              id="password"
-              name="password"
-              type="password"
-              autoComplete="current-password"
-              required
-              className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2 text-sm"
-            />
+            <CampoSenha />
           </div>
 
           {mensagem && (
