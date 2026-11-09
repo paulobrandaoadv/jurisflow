@@ -1,36 +1,44 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# JurisFlow — Sistema de gestão para escritórios de advocacia
 
-## Getting Started
+Aplicação Next.js (App Router) + TypeScript + Tailwind + Supabase (Auth, Postgres, RLS).
 
-First, run the development server:
+## Requisitos
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- Node.js 20+ (testado com Node 26)
+- Projeto Supabase próprio
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Configuração local
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. Instale as dependências: `npm install`
+2. Copie `.env.example` para `.env.local` e preencha `NEXT_PUBLIC_SUPABASE_URL` e `NEXT_PUBLIC_SUPABASE_ANON_KEY`.
+3. Aplique a migração `supabase/migrations/0001_fundacao.sql` no projeto Supabase (SQL Editor ou Supabase CLI).
+4. No painel do Supabase, desative o cadastro público (Authentication > Providers > Email > desabilitar "Allow new users to sign up" ou equivalente) para que usuários sejam criados apenas por um administrador.
+5. Rode `npm run dev` e acesse `http://localhost:3000`.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Papéis
 
-## Learn More
+| Papel | Permissões |
+|---|---|
+| admin | Tudo, incluindo gerenciamento de usuários e leitura da auditoria |
+| advogado | Lê e escreve clientes |
+| assistente | Lê e escreve clientes |
+| consulta | Somente leitura |
 
-To learn more about Next.js, take a look at the following resources:
+Novos usuários entram como `consulta`. Somente administradores alteram papéis (tabela `profiles`, protegida por RLS).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Segurança
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Proteção de rotas em `src/proxy.ts`, com verificação de permissão também em cada página e Server Action (`src/lib/auth/session.ts`).
+- RLS habilitado em `profiles`, `clients` e `audit_log`.
+- `audit_log` é somente de inserção (triggers bloqueiam UPDATE e DELETE).
 
-## Deploy on Vercel
+## Scripts
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- `npm run dev` — servidor de desenvolvimento
+- `npm run build` — build de produção
+- `npm run lint` — ESLint
+- `npm test` — testes unitários (matriz de permissões)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Estado
+
+Veja [ROADMAP.md](./ROADMAP.md).
