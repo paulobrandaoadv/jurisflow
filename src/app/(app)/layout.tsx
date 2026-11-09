@@ -87,7 +87,12 @@ async function AppShell({ children }: { children: React.ReactNode }) {
                 </span>
               </span>
             ) : (
-              <NavLink key={item.label} href={item.href} label={item.label} icon={item.icon} />
+              <NavLink
+                key={item.label}
+                href={item.href}
+                label={item.label}
+                icon={<item.icon className="size-[18px] shrink-0" aria-hidden="true" />}
+              />
             ),
           )}
         </nav>
