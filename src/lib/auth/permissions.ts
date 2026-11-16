@@ -9,6 +9,10 @@ export const PERMISSIONS = [
   "processos:escrever",
   "documentos:ler",
   "documentos:escrever",
+  "prazos:ler",
+  "prazos:escrever",
+  "agenda:ler",
+  "agenda:escrever",
   "usuarios:gerenciar",
   "auditoria:ler",
 ] as const;
@@ -23,6 +27,10 @@ export const PERMISSION_MATRIX: Record<Role, readonly Permission[]> = {
     "processos:escrever",
     "documentos:ler",
     "documentos:escrever",
+    "prazos:ler",
+    "prazos:escrever",
+    "agenda:ler",
+    "agenda:escrever",
     "usuarios:gerenciar",
     "auditoria:ler",
   ],
@@ -33,6 +41,10 @@ export const PERMISSION_MATRIX: Record<Role, readonly Permission[]> = {
     "processos:escrever",
     "documentos:ler",
     "documentos:escrever",
+    "prazos:ler",
+    "prazos:escrever",
+    "agenda:ler",
+    "agenda:escrever",
   ],
   assistente: [
     "clientes:ler",
@@ -41,8 +53,18 @@ export const PERMISSION_MATRIX: Record<Role, readonly Permission[]> = {
     "processos:escrever",
     "documentos:ler",
     "documentos:escrever",
+    "prazos:ler",
+    "prazos:escrever",
+    "agenda:ler",
+    "agenda:escrever",
   ],
-  consulta: ["clientes:ler", "processos:ler", "documentos:ler"],
+  consulta: [
+    "clientes:ler",
+    "processos:ler",
+    "documentos:ler",
+    "prazos:ler",
+    "agenda:ler",
+  ],
 };
 
 export function can(role: Role, permission: Permission): boolean {

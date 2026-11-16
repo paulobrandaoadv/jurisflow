@@ -56,9 +56,22 @@
 - [ ] Exportação em DOCX e registro do documento gerado na aba Documentos
 - [ ] Validar com um modelo real antes de usar em produção
 
+## Etapa 5 — Prazos e agenda (em andamento)
+
+- [x] Motor de cálculo de prazos em dias úteis e corridos (CPC arts. 220 e 224) com feriados nacionais e recesso forense, com testes (`src/lib/prazos/calculo.ts`)
+- [x] Cadastro de prazos vinculados a processo e cliente, com fonte, responsável e vencimento manual
+- [x] Fluxo de confirmação: pendente → confirmado → cumprido, com correção auditada (justificativa obrigatória)
+- [x] Lista de prazos com indicadores de vencidos, até 7 dias e aguardando confirmação
+- [x] Agenda em visão mensal com compromissos, tarefas e prazos confirmados
+- [x] Migração `0004_prazos_agenda.sql` com RLS (aguardando aplicação no Supabase)
+- [ ] Calendários estaduais, municipais e de cada tribunal (hoje só feriados nacionais)
+- [ ] Alertas personalizados em 7, 3, 2 e 1 dia antes, no dia e após o vencimento
+- [ ] Visões de agenda por semana e por dia
+- [ ] Prazos próximos no painel inicial (hoje é apenas um bloco "Em breve")
+- [ ] Sincronização com Google Agenda (opcional)
+
 ## Etapas seguintes
 
-- Etapa 5 — Prazos e agenda
 - Etapa 6 — Integrações (DJEN/publicações e DataJud)
 - Etapa 7 — Financeiro e atendimentos
 - Etapa 8 — Finalização

@@ -2,7 +2,8 @@ import type { createClient } from "@/lib/supabase/server";
 
 type Supabase = Awaited<ReturnType<typeof createClient>>;
 
-export async function carregarOpcoesDocumento(supabase: Supabase) {
+// Opções de vínculo (cliente, processo e equipe) usadas por documentos, prazos e agenda.
+export async function carregarOpcoesVinculo(supabase: Supabase) {
   const [{ data: clientes }, { data: processos }, { data: equipe }] = await Promise.all([
     supabase.from("clients").select("id, nome").order("nome").limit(500),
     supabase.from("processes").select("id, numero_cnj, assunto").order("created_at", { ascending: false }).limit(500),

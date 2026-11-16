@@ -4,7 +4,7 @@ import { connection } from "next/server";
 import { requirePermission } from "@/lib/auth/session";
 import { createClient } from "@/lib/supabase/server";
 import { DocumentoForm } from "@/app/(app)/documentos/documento-form";
-import { carregarOpcoesDocumento } from "@/app/(app)/documentos/opcoes";
+import { carregarOpcoesVinculo } from "@/lib/vinculos/opcoes";
 
 export default function NovoDocumentoPage() {
   return (
@@ -18,7 +18,7 @@ async function Novo() {
   await connection();
   await requirePermission("documentos:escrever");
   const supabase = await createClient();
-  const opcoes = await carregarOpcoesDocumento(supabase);
+  const opcoes = await carregarOpcoesVinculo(supabase);
 
   return (
     <main>

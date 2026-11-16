@@ -6,7 +6,7 @@ import { requirePermission } from "@/lib/auth/session";
 import { can } from "@/lib/auth/permissions";
 import { createClient } from "@/lib/supabase/server";
 import { DocumentoForm } from "@/app/(app)/documentos/documento-form";
-import { carregarOpcoesDocumento } from "@/app/(app)/documentos/opcoes";
+import { carregarOpcoesVinculo } from "@/lib/vinculos/opcoes";
 import { excluirDocumento } from "@/app/(app)/documentos/actions";
 import { ConfirmSubmit } from "@/app/(app)/processos/[id]/confirm-submit";
 import { ROTULOS_CATEGORIA, UUID_REGEX, type Categoria } from "@/lib/documentos/validation";
@@ -60,7 +60,7 @@ async function DetalheDocumento({ params, searchParams }: { params: Params; sear
 
   const [{ data: vinculos }, opcoes] = await Promise.all([
     supabase.from("document_processes").select("process_id").eq("document_id", id),
-    podeEscrever ? carregarOpcoesDocumento(supabase) : Promise.resolve(null),
+    podeEscrever ? carregarOpcoesVinculo(supabase) : Promise.resolve(null),
   ]);
 
   const mensagem = salvo ? MENSAGENS.salvo : enviado ? MENSAGENS.enviado : null;

@@ -20,8 +20,8 @@ const ABAS = [
   { id: "contratos", label: "Contratos", etapa: "Etapa 5" },
   { id: "declaracoes", label: "Declarações", etapa: "Etapa 3" },
   { id: "atendimentos", label: "Atendimentos", etapa: "Etapa 5" },
-  { id: "prazos", label: "Prazos", etapa: "Etapa 4" },
-  { id: "agenda", label: "Agenda", etapa: "Etapa 4" },
+  { id: "prazos", label: "Prazos", etapa: "Etapa 5" },
+  { id: "agenda", label: "Agenda", etapa: "Etapa 5" },
   { id: "financeiro", label: "Financeiro", etapa: "Etapa 5" },
   { id: "historico", label: "Histórico" },
 ] as const;
