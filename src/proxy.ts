@@ -1,7 +1,8 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { updateSession } from "@/lib/supabase/session";
 
-const PUBLIC_PATHS = ["/login"];
+// /api/cron é validado pela própria rota, via CRON_SECRET.
+const PUBLIC_PATHS = ["/login", "/api/cron"];
 
 export async function proxy(request: NextRequest) {
   const { response, user } = await updateSession(request);
