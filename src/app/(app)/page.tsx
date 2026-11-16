@@ -1,16 +1,67 @@
 import Link from "next/link";
 import { Suspense } from "react";
 import { connection } from "next/server";
-import { CalendarClock, Gavel, FileText, Users, Landmark, Newspaper } from "lucide-react";
+import { Landmark, Newspaper, Gavel, FileText, Users } from "lucide-react";
 import { requireUser } from "@/lib/auth/session";
+import { can } from "@/lib/auth/permissions";
 import { createClient } from "@/lib/supabase/server";
 import { ROTULOS_GRAU, ROTULOS_SITUACAO } from "@/lib/processos/validation";
+import { diasAte, formatarData, hojeSaoPaulo, vencimentoEfetivo } from "@/lib/prazos/validation";
 
 export default function DashboardPage() {
   return (
     <Suspense fallback={<p className="text-sm text-slate-500">Carregando indicadores…</p>}>
       <DashboardContent />
     </Suspense>
+  );
+}
+
+async function PrazosProximos() {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("deadlines")
+    .select("id, descricao, vencimento_calculado, vencimento_confirmado")
+    .eq("situacao", "confirmado")
+    .order("vencimento_confirmado", { ascending: true })
+    .limit(20);
+
+  const hoje = hojeSaoPaulo();
+  const proximos = (data ?? [])
+    .map((p) => ({ ...p, vencimento: vencimentoEfetivo(p), dias: diasAte(vencimentoEfetivo(p), hoje) }))
+    .filter((p) => p.dias <= 7)
+    .sort((a, b) => a.vencimento.localeCompare(b.vencimento))
+    .slice(0, 5);
+
+  return (
+    <div className="rounded-xl border border-white/5 bg-[#111a2e]">
+      <div className="flex items-center justify-between border-b border-white/5 px-5 py-4">
+        <h2 className="font-semibold text-white">Prazos próximos</h2>
+        <Link href="/prazos" className="text-sm text-blue-400 hover:text-blue-300">
+          Ver todos →
+        </Link>
+      </div>
+      {error ? (
+        <p className="px-5 py-4 text-sm text-red-400">Não foi possível carregar os prazos.</p>
+      ) : proximos.length === 0 ? (
+        <p className="px-5 py-4 text-sm text-slate-500">Nenhum prazo nos próximos 7 dias.</p>
+      ) : (
+        <ul className="divide-y divide-white/5">
+          {proximos.map((p) => (
+            <li key={p.id}>
+              <Link href={`/prazos/${p.id}`} className="flex items-center justify-between gap-4 px-5 py-3 hover:bg-white/[0.03]">
+                <div className="min-w-0">
+                  <p className="truncate text-sm font-medium text-slate-100">{p.descricao}</p>
+                  <p className="text-xs text-slate-500">{formatarData(p.vencimento)}</p>
+                </div>
+                <span className={`shrink-0 text-xs ${p.dias < 0 ? "text-red-400" : p.dias <= 1 ? "text-amber-400" : "text-slate-400"}`}>
+                  {p.dias < 0 ? `Vencido há ${Math.abs(p.dias)} dia(s)` : p.dias === 0 ? "Vence hoje" : `Em ${p.dias} dia(s)`}
+                </span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
   );
 }
 
@@ -118,8 +169,12 @@ async function DashboardContent() {
         </div>
 
         <div className="space-y-4">
+          {can(user.role, "prazos:ler") && (
+            <Suspense fallback={<p className="text-sm text-slate-500">Carregando prazos…</p>}>
+              <PrazosProximos />
+            </Suspense>
+          )}
           {[
-            { titulo: "Prazos próximos", etapa: "Etapa 5", icon: CalendarClock },
             { titulo: "Integração eproc", etapa: "Etapa 6", icon: Landmark },
             { titulo: "Diário Oficial", etapa: "Etapa 6", icon: Newspaper },
           ].map((bloco) => (
