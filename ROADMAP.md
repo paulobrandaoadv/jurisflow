@@ -65,9 +65,10 @@
 - [x] Agenda em visão mensal com compromissos, tarefas e prazos confirmados
 - [x] Migração `0004_prazos_agenda.sql` com RLS (aguardando aplicação no Supabase)
 - [ ] Calendários estaduais, municipais e de cada tribunal (hoje só feriados nacionais)
-- [ ] Alertas personalizados em 7, 3, 2 e 1 dia antes, no dia e após o vencimento
+- [x] Alertas por e-mail em 7, 3, 2 e 1 dia antes, no dia e após o vencimento, enviados diariamente às 08:00 via Vercel Cron e Resend (`src/lib/prazos/alertas-job.ts`, migração `0005_alertas_prazos.sql`)
+- [ ] Alertas personalizados por prazo (hoje todos seguem o padrão acima)
 - [ ] Visões de agenda por semana e por dia
-- [ ] Prazos próximos no painel inicial (hoje é apenas um bloco "Em breve")
+- [x] Prazos próximos no painel inicial (próximos 7 dias, incluindo vencidos)
 - [ ] Sincronização com Google Agenda (opcional)
 
 ## Etapas seguintes
