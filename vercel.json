@@ -3,6 +3,10 @@
     {
       "path": "/api/cron/alertas-prazos",
       "schedule": "0 11 * * *"
+    },
+    {
+      "path": "/api/cron/djen",
+      "schedule": "0 10 * * *"
     }
   ]
 }

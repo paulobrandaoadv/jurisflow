@@ -15,6 +15,7 @@ import {
 } from "@/app/(app)/processos/actions";
 import { ConfirmSubmit } from "@/app/(app)/processos/[id]/confirm-submit";
 import { POLOS, ROTULOS_POLO, type ProcessoValues } from "@/lib/processos/validation";
+import { buscarMovimentosDatajud } from "@/lib/publicacoes/datajud";
 
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
@@ -301,6 +302,45 @@ async function DetalheProcesso({ params, searchParams }: { params: Params; searc
           </ol>
         )}
       </section>
+
+      {processo.numero_cnj && (
+        <Suspense fallback={<p className="mt-6 text-sm text-slate-500">Consultando DataJud…</p>}>
+          <AndamentoDatajud numeroCnj={processo.numero_cnj} />
+        </Suspense>
+      )}
     </main>
   );
 }
+
+async function AndamentoDatajud({ numeroCnj }: { numeroCnj: string }) {
+  const resultado = await buscarMovimentosDatajud(numeroCnj);
+
+  return (
+    <section className="mt-6 max-w-3xl rounded-xl bg-white p-6 shadow-sm">
+      <h2 className="text-lg font-semibold text-slate-900">Andamento (DataJud)</h2>
+      <p className="mt-1 text-sm text-slate-500">Últimos movimentos informados pelo tribunal, em ordem decrescente.</p>
+
+      {!resultado.ok ? (
+        <p className="mt-4 text-sm text-slate-500">{MENSAGENS_DATAJUD[resultado.motivo]}</p>
+      ) : resultado.movimentos.length === 0 ? (
+        <p className="mt-4 text-sm text-slate-500">Nenhum movimento encontrado no DataJud.</p>
+      ) : (
+        <ol className="mt-4 space-y-3">
+          {resultado.movimentos.map((mov, i) => (
+            <li key={`${mov.dataHora}-${i}`} className="border-l-2 border-slate-200 pl-4">
+              <p className="text-xs text-slate-500">{new Date(mov.dataHora).toLocaleDateString("pt-BR")}</p>
+              <p className="mt-1 text-sm text-slate-900">{mov.nome}</p>
+            </li>
+          ))}
+        </ol>
+      )}
+    </section>
+  );
+}
+
+const MENSAGENS_DATAJUD: Record<string, string> = {
+  "sem-chave": "Chave do DataJud não configurada no servidor (DATAJUD_API_KEY).",
+  "tribunal-nao-suportado": "Tribunal deste número ainda não é consultado pelo DataJud neste sistema.",
+  "nao-encontrado": "Processo não encontrado no DataJud.",
+  falha: "Não foi possível consultar o DataJud agora.",
+};

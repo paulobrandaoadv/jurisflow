@@ -71,9 +71,17 @@
 - [x] Prazos próximos no painel inicial (próximos 7 dias, incluindo vencidos)
 - [ ] Sincronização com Google Agenda (opcional)
 
+## Etapa 6 — Publicações e DataJud (em andamento)
+
+- [x] Consulta às publicações do DJEN por OAB, com paginação e tratamento de limite de requisições (`src/lib/publicacoes/djen.ts`)
+- [x] Sincronização diária às 07:00 (Brasília) via Vercel Cron, com vínculo ao processo pelo número CNJ (`src/lib/publicacoes/sincronizacao-job.ts`, migração `0006_publicacoes.sql`)
+- [x] Página Publicações e Intimações com filtros, inteiro teor e marcação como tratada ou ignorada
+- [x] Andamento do processo consultado no DataJud (CNJ), com alias por tribunal (`src/lib/publicacoes/datajud.ts`)
+- [ ] Confirmar os campos reais do DJEN e do DataJud com publicações e processos reais
+- [ ] Criar prazo a partir de uma publicação
+
 ## Etapas seguintes
 
-- Etapa 6 — Integrações (DJEN/publicações e DataJud)
 - Etapa 7 — Financeiro e atendimentos
 - Etapa 8 — Finalização
 

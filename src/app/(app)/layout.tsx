@@ -34,7 +34,7 @@ const MENU: MenuItem[] = [
   { label: "Gerador de Documentos", href: "/gerador", icon: FileCheck },
   { label: "Prazos", href: "/prazos", icon: Clock },
   { label: "Agenda", href: "/agenda", icon: CalendarDays },
-  { label: "Publicações e Intimações", href: "#", icon: Newspaper, etapa: "Etapa 6" },
+  { label: "Publicações e Intimações", href: "/publicacoes", icon: Newspaper },
   { label: "Financeiro", href: "#", icon: Wallet, etapa: "Etapa 7" },
   { label: "Atendimentos", href: "#", icon: MessageSquare, etapa: "Etapa 7" },
   { label: "Relatórios", href: "#", icon: ChartColumn, etapa: "Etapa 8" },

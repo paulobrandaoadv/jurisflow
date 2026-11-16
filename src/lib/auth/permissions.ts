@@ -13,6 +13,8 @@ export const PERMISSIONS = [
   "prazos:escrever",
   "agenda:ler",
   "agenda:escrever",
+  "publicacoes:ler",
+  "publicacoes:escrever",
   "usuarios:gerenciar",
   "auditoria:ler",
 ] as const;
@@ -31,6 +33,8 @@ export const PERMISSION_MATRIX: Record<Role, readonly Permission[]> = {
     "prazos:escrever",
     "agenda:ler",
     "agenda:escrever",
+    "publicacoes:ler",
+    "publicacoes:escrever",
     "usuarios:gerenciar",
     "auditoria:ler",
   ],
@@ -45,6 +49,8 @@ export const PERMISSION_MATRIX: Record<Role, readonly Permission[]> = {
     "prazos:escrever",
     "agenda:ler",
     "agenda:escrever",
+    "publicacoes:ler",
+    "publicacoes:escrever",
   ],
   assistente: [
     "clientes:ler",
@@ -57,6 +63,8 @@ export const PERMISSION_MATRIX: Record<Role, readonly Permission[]> = {
     "prazos:escrever",
     "agenda:ler",
     "agenda:escrever",
+    "publicacoes:ler",
+    "publicacoes:escrever",
   ],
   consulta: [
     "clientes:ler",
@@ -64,6 +72,7 @@ export const PERMISSION_MATRIX: Record<Role, readonly Permission[]> = {
     "documentos:ler",
     "prazos:ler",
     "agenda:ler",
+    "publicacoes:ler",
   ],
 };
 
