@@ -1,5 +1,8 @@
 import { sincronizarDjen } from "@/lib/publicacoes/sincronizacao-job";
 
+// O DJEN recusou (403) requisições vindas de Washington (iad1); São Paulo é aceito.
+export const preferredRegion = "gru1";
+
 export async function GET(request: Request) {
   const segredo = process.env.CRON_SECRET;
   if (!segredo || request.headers.get("authorization") !== `Bearer ${segredo}`) {
