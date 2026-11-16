@@ -47,9 +47,17 @@
 - [ ] Validar a migração 0003, o bucket e as políticas de storage no projeto Supabase real
 - [ ] Adiado: OCR, extração automática de dados e versionamento de documentos
 
+## Etapa 4 — Gerador automático de documentos jurídicos (em andamento)
+
+- [x] Motor de preenchimento de modelos com marcadores `{{cliente.nome}}` etc. e lista de campos faltantes (`src/lib/gerador/modelo.ts`) com testes
+- [x] Página `/gerador` com campos disponíveis e lista de modelos
+- [ ] Modelos de petição, procuração e contrato (aguardando envio dos modelos pelo usuário)
+- [ ] Formulário para escolher cliente, processo e modelo, com pré-visualização
+- [ ] Exportação em DOCX e registro do documento gerado na aba Documentos
+- [ ] Validar com um modelo real antes de usar em produção
+
 ## Etapas seguintes
 
-- Etapa 4 — Gerador automático de documentos jurídicos
 - Etapa 5 — Prazos e agenda
 - Etapa 6 — Integrações (DJEN/publicações e DataJud)
 - Etapa 7 — Financeiro e atendimentos

@@ -119,9 +119,9 @@ async function DashboardContent() {
 
         <div className="space-y-4">
           {[
-            { titulo: "Prazos próximos", etapa: "Etapa 4", icon: CalendarClock },
-            { titulo: "Integração eproc", etapa: "Etapa 4", icon: Landmark },
-            { titulo: "Diário Oficial", etapa: "Etapa 4", icon: Newspaper },
+            { titulo: "Prazos próximos", etapa: "Etapa 5", icon: CalendarClock },
+            { titulo: "Integração eproc", etapa: "Etapa 6", icon: Landmark },
+            { titulo: "Diário Oficial", etapa: "Etapa 6", icon: Newspaper },
           ].map((bloco) => (
             <div
               key={bloco.titulo}
